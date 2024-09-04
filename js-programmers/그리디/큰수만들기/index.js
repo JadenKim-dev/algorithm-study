@@ -1,15 +1,14 @@
-function solution(number, k) {
-  const nums = number.split("");
-  const stack = [nums.shift()];
-  nums.forEach((num) => {
-    console.log({ num, k, stack });
-    while (stack.length > 0 && stack[stack.length - 1] < num && k > 0) {
-      k -= 1;
-      stack.pop();
+function solution(people, limit) {
+  people.sort((a, b) => a - b);
+  let answer = 0;
+  while (people.length > 0) {
+    const biggest = people.pop();
+    if (biggest + people[0] <= limit) {
+      people.shift();
     }
-    stack.push(num);
-  });
-  return (k === 0 ? stack : stack.slice(0, number.length - k)).join("");
+    answer += 1;
+  }
+  return answer;
 }
 
-console.log(solution("4177252841", 4));
+solution([70, 50, 80, 50], 100);
